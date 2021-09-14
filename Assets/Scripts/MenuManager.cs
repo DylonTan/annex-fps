@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MenuManager : MonoBehaviour
 {
+    // Singleton instance
     public static MenuManager Instance;
 
     [SerializeField]
@@ -16,6 +17,7 @@ public class MenuManager : MonoBehaviour
 
     public void OpenMenu(string _menuName)
     {
+        // Loop through each menu in list of menus, open if menu is found, close otherwise
         foreach (Menu menu in menus)
         {
             if (menu.menuName == _menuName)
@@ -30,6 +32,7 @@ public class MenuManager : MonoBehaviour
 
     public void OpenMenu(Menu _menu)
     {
+        // Loop through each menu in list of menus and close
         foreach (Menu menu in menus)
         {
             if (menu.isOpen)
@@ -37,11 +40,13 @@ public class MenuManager : MonoBehaviour
                 menu.Close();
             }
         }
+        // Open menu provided
         _menu.Open();
     }
 
     public void CloseMenu(Menu menu)
     {
+        // Close menu provided
         menu.Close();
     }
 }

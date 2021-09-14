@@ -12,12 +12,14 @@ public class Menu : MonoBehaviour
     public void Open()
     {
         isOpen = true;
+        // Set current game object to active
         gameObject.SetActive(true);
     }
 
     public void Close()
     {
         isOpen = false;
+        // Set current game object to inactive
         gameObject.SetActive(false);
     }
 }

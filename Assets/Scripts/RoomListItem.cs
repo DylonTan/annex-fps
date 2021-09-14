@@ -7,18 +7,20 @@ using TMPro;
 public class RoomListItem : MonoBehaviour
 {
     [SerializeField]
-    TMP_Text roomListItemText;
+    private TMP_Text roomListItemText;
 
-    RoomInfo roomInfo;
+    public RoomInfo roomInfo;
 
     public void Init(RoomInfo _roomInfo)
     {
         roomInfo = _roomInfo;
+        // Set room list item text to current room's name
         roomListItemText.text = _roomInfo.Name;
     }
 
     public void onClick()
     {
+        // Join room with current room info
         Launcher.Instance.JoinRoom(roomInfo);
     }
 }

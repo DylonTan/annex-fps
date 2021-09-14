@@ -2,53 +2,67 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerControllerUtils))]
 public class PlayerController : MonoBehaviour
 {
-    private PlayerControllerUtils utils;
+    Rigidbody rb;
 
     [SerializeField]
-    private float speed = 5.0f;
+    GameObject cameraHolder;
 
-    private float sensitivity = 3.0f;
+    [SerializeField]
+    float mouseSensitivity, sprintSpeed, walkSpeed, jumpForce, smoothTime;
+
+    float verticalRotationAngle;
+    bool isGrounded;
+    Vector3 smoothMoveVelocity;
+    Vector3 moveAmount;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        utils = GetComponent<PlayerControllerUtils>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Get keyboard input
-        float _horizontalKeyboardInput = Input.GetAxisRaw("Horizontal");
-        float _verticalKeyboardInput = Input.GetAxisRaw("Vertical");
+        Look();
+        Move();
+    }
 
-        // Calculate movement direction as a 3d vector
-        Vector3 _horizontalMovement = Vector3.right * _horizontalKeyboardInput;
-        Vector3 _verticalMovement = Vector3.forward * _verticalKeyboardInput;
+    void Look()
+    {
+        float horizontalInput = Input.GetAxisRaw("Mouse X");
+        float verticalInput = Input.GetAxisRaw("Mouse Y");
 
-        // Calculate movement velocity as a 3d vector
-        Vector3 _velocity = (_horizontalMovement + _verticalMovement).normalized * speed;
+        Vector3 horizontalRotation = Vector3.up * horizontalInput * mouseSensitivity;
+        rb.MoveRotation(rb.rotation * Quaternion.Euler(horizontalRotation));
 
-        // Apply movement
-        utils.Move(_velocity);
+        verticalRotationAngle += verticalInput * mouseSensitivity;
+        verticalRotationAngle = Mathf.Clamp(verticalRotationAngle, -90.0f, 90.0f);
 
-        // Get horizontal mouse input
-        float _horizontalMouseInput = Input.GetAxisRaw("Mouse X");
+        Vector3 verticalRotation = Vector3.left * verticalRotationAngle;
 
-        Vector3 _playerRotation = Vector3.up * _horizontalMouseInput * sensitivity;
+        cameraHolder.transform.localEulerAngles = verticalRotation;
+    }
 
-        // Apply rotation
-        utils.RotatePlayer(_playerRotation);
+    void Move()
+    {
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float forwardInput = Input.GetAxisRaw("Vertical");
 
-        // Get vertical mouse input
-        float _verticalMouseInput = Input.GetAxisRaw("Mouse Y");
+        Vector3 horizontalMovement = transform.right * horizontalInput;
+        Vector3 forwardMovement = transform.forward * forwardInput;
 
-        Vector3 _cameraRotation = Vector3.right * _verticalMouseInput * sensitivity;
+        Vector3 velocity = (horizontalMovement + forwardMovement).normalized * walkSpeed;
 
-        // Apply rotation
-        utils.RotateCamera(_cameraRotation);
+        Vector3 displacement = velocity * Time.fixedDeltaTime;
+
+        rb.MovePosition(rb.position + displacement);
     }
 }
