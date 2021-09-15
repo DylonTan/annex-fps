@@ -10,25 +10,24 @@ public class Launcher : MonoBehaviourPunCallbacks
     // Singleton instance
     public static Launcher Instance;
 
-    [SerializeField]
-    private TMP_InputField roomNameInputField;
-    [SerializeField]
-    private TMP_Text errorText;
-    [SerializeField]
-    private TMP_Text roomNameText;
-    [SerializeField]
-    private Transform roomList;
-    [SerializeField]
-    private GameObject roomListItemPrefab;
-    [SerializeField]
-    private Transform playerList;
-    [SerializeField]
-    private GameObject playerListItemPrefab;
-    [SerializeField]
-    private GameObject startGameButton;
+    [SerializeField] private TMP_InputField roomNameInputField;
+    [SerializeField] private TMP_Text errorText;
+    [SerializeField] private TMP_Text roomNameText;
+    [SerializeField] private Transform roomList;
+    [SerializeField] private GameObject roomListItemPrefab;
+    [SerializeField] private Transform playerList;
+    [SerializeField] private GameObject playerListItemPrefab;
+    [SerializeField] private GameObject startGameButton;
 
+    // Awake is called before Start
     private void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        DontDestroyOnLoad(gameObject);
         Instance = this;
     }
 

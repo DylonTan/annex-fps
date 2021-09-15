@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Menu : MonoBehaviour
 {
-    [SerializeField]
-    public string menuName;
+    [SerializeField] public string menuName;
 
     public bool isOpen;
 

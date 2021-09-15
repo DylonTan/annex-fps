@@ -15,6 +15,7 @@ public class PlayerListItem : MonoBehaviourPunCallbacks
     public void Init(Player _player)
     {
         player = _player;
+
         // Set player list item text to player's nickname
         playerListItemText.text = _player.NickName;
     }

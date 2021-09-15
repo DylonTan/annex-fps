@@ -7,11 +7,17 @@ public class MenuManager : MonoBehaviour
     // Singleton instance
     public static MenuManager Instance;
 
-    [SerializeField]
-    public Menu[] menus;
+    [SerializeField] public Menu[] menus;
 
+    // Awake is called before Start
     private void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        DontDestroyOnLoad(gameObject);
         Instance = this;
     }
 

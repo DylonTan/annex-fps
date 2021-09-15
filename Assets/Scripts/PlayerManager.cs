@@ -6,10 +6,12 @@ using System.IO;
 
 public class PlayerManager : MonoBehaviour
 {
-    PhotonView pv;
+    private PhotonView pv;
 
+    // Awake is called before Start
     private void Awake()
     {
+        // Get reference to photon view
         pv = GetComponent<PhotonView>();
     }
 

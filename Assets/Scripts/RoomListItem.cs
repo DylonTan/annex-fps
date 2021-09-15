@@ -14,6 +14,7 @@ public class RoomListItem : MonoBehaviour
     public void Init(RoomInfo _roomInfo)
     {
         roomInfo = _roomInfo;
+
         // Set room list item text to current room's name
         roomListItemText.text = _roomInfo.Name;
     }

@@ -7,6 +7,7 @@ using System.IO;
 
 public class RoomManager : MonoBehaviourPunCallbacks
 {
+    // Singleton instance
     public static RoomManager Instance;
 
     private void Awake()
@@ -25,6 +26,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     private void OnEnable()
     {
         base.OnEnable();
+
         // Add OnSceneLoaded method to list of delegates for sceneLoaded event
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
@@ -32,6 +34,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     private void OnDisable()
     {
         base.OnDisable();
+
         // Add OnSceneLoaded method to list of delegates for sceneLoaded event
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
